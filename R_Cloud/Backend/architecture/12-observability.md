@@ -91,7 +91,9 @@ deployment_duration_ms     ← how long full deploy takes
 
 All services export to an OTel Collector.
 
-Collector exports to AgentOps backend for display in dashboard.
+Collector exports to AgentOps backend. AgentOps applies a **tenant filter**:
+- **User Dashboard** only sees traces related to their specific `POST /execute` requests (external API gateway latency -> railway latency).
+- **Internal SRE Dashboard** sees all internal spans (gRPC calls, DB queries, platform errors).
 
 ---
 

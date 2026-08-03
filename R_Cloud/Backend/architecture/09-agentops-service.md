@@ -128,9 +128,12 @@ AgentOps Service
 
 Every backend service sends traces to the OTel Collector.
 
-AgentOps reads from the collector and displays:
+AgentOps reads from the collector but **filters** the traces before exposing them to the User Dashboard:
 
-- Full request trace from API Gateway to Railway
-- gRPC call latency (Deployment → Runtime Service)
-- Database query duration
-- Error details with stack context
+- **Exposed to User (Developer Dashboard):**
+  - Traces of execution requests sent to their specific deployed agent.
+  - Proxy request latencies and HTTP error statuses.
+- **Hidden from User (Internal SRE Only):**
+  - Internal platform gRPC call latencies (e.g., Deployment → Runtime Service).
+  - Internal database query durations.
+  - Internal error details with platform stack context (to prevent leaking platform internals).
